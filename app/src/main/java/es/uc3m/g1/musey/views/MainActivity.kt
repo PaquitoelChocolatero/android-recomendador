@@ -1,7 +1,8 @@
-package es.uc3m.g1.musey
+package es.uc3m.g1.musey.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import es.uc3m.g1.musey.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
