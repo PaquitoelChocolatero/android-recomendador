@@ -1,4 +1,4 @@
-package es.uc3m.g1.musey.views
+package es.uc3m.g1.musey.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
