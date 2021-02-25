@@ -8,6 +8,7 @@ import androidx.room.Query
 interface SearchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSearch(search: Search)
+
     @Query("SELECT * FROM Search")
     fun findAll(): LiveData<List<Search>>
 }
