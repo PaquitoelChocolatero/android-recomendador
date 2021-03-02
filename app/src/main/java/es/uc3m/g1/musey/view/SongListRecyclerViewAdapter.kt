@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import es.uc3m.g1.musey.R
-import es.uc3m.g1.musey.model.Song
-
-import es.uc3m.g1.musey.view.dummy.DummyContent.DummyItem
+import es.uc3m.g1.musey.model.api.lastfm.Track
 
 class SongListRecyclerViewAdapter(
-    private val values: List<Song>
+    var values: List<Track>
 ) : RecyclerView.Adapter<SongListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,7 +21,7 @@ class SongListRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.idView.text = item.title
-        holder.contentView.text = item.artist
+        holder.contentView.text = item.artist.name
     }
 
     override fun getItemCount(): Int = values.size

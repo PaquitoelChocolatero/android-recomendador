@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import es.uc3m.g1.musey.R
-import es.uc3m.g1.musey.view.dummy.DummyContent
-import es.uc3m.g1.musey.viewModel.SongList
+import es.uc3m.g1.musey.viewModel.SongListViewModel
 
 /**
  * A fragment representing a list of Items.
@@ -19,13 +20,11 @@ class FragmentSongList : Fragment() {
 
     private var columnCount = 1
 
-    private lateinit var songViewModel: SongList
+    private lateinit var viewModel: SongListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        songViewModel = ViewModelProvider(this).get(songViewModel::class.java)
-
+        viewModel = ViewModelProvider(this).get(SongListViewModel::class.java)
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -35,7 +34,7 @@ class FragmentSongList : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_song_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_song_search, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -44,9 +43,15 @@ class FragmentSongList : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = SongListRecyclerViewAdapter(Song.ITEMS)
+                adapter = SongListRecyclerViewAdapter(viewModel.list.value ?: emptyList())
+                viewModel.list.observe(viewLifecycleOwner, Observer { songs ->
+                    (adapter as SongListRecyclerViewAdapter).values = songs
+                })
             }
         }
+
+
+
         return view
     }
 
