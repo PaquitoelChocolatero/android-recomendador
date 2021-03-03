@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Musey</string>
+    <string name="ssl_pin_error">SSL PIN ERROR</string>
 </resources>
