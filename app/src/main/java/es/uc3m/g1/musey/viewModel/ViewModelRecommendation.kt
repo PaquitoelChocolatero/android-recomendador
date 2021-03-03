@@ -11,7 +11,8 @@ import es.uc3m.g1.musey.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ViewModelSearch(application: Application): AndroidViewModel(application) {
+class ViewModelRecommendation(application: Application): AndroidViewModel(application) {
+
     private val repository: Repository = Repository(application.applicationContext)
 
     val error_msg: MutableLiveData<String> = MutableLiveData()
@@ -21,7 +22,11 @@ class ViewModelSearch(application: Application): AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 list.postValue(
-                    repository.getTrack("Believe")
+                    repository.getSimilar(
+                        Track(
+                            "believe", Artist("cher")
+                        )
+                    )
                 )
             }catch (e: javax.net.ssl.SSLHandshakeException){
                 error_msg.postValue(
@@ -30,4 +35,5 @@ class ViewModelSearch(application: Application): AndroidViewModel(application) {
             }
         }
     }
+
 }

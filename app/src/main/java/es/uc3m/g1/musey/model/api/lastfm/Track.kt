@@ -24,7 +24,7 @@ data class Track (
             json?.asJsonArray?.forEach { cover ->
                 cover.asJsonObject?.run {
                     val url  = get("#text").asString ?: return emptyMap()
-                    val size = get("size") .asString ?: return emptyMap()
+                    val size = get("size").asString ?: return emptyMap()
                     map[size] = url
                 }
             }
