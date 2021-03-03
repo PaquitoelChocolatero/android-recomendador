@@ -1,26 +1,34 @@
 package es.uc3m.g1.musey.model.api.lastfm
 
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
 import com.google.gson.annotations.JsonAdapter
+import com.google.gson.annotations.SerializedName
+
+import java.lang.reflect.Type
 
 data class Track (
-    var title:  String,
-    var artist: Artist,
-)
-/*{
-    class Deserializer: JsonDeserializer<LastFMTrack> {
+    @SerializedName("name")   var title:  String,
+    @SerializedName("artist") var artist: Artist,
+    @JsonAdapter(CoverListDeserializer::class)
+    @SerializedName("image")  var covers: Map<String, String> = emptyMap(),
+) {
+    class CoverListDeserializer: JsonDeserializer<Map<String, String>> {
         override fun deserialize(
             json: JsonElement?,
             typeOfT: Type?,
             context: JsonDeserializationContext?
-        ): LastFMTrack {
-            with(json?.asJsonObject) {
-                return LastFMTrack(
-                    this?.get("name")?.asString ?: "",
-                    with(this?.get("artist")?.asJsonObject) {
-                        this?.get("name")?.asString ?: ""
-                    },
-                )
+        ): Map<String, String> {
+            val map: MutableMap<String, String> = mutableMapOf()
+            json?.asJsonArray?.forEach { cover ->
+                cover.asJsonObject?.run {
+                    val url  = get("#text").asString ?: return emptyMap()
+                    val size = get("size") .asString ?: return emptyMap()
+                    map[size] = url
+                }
             }
+            return map
         }
     }
-}*/
+}

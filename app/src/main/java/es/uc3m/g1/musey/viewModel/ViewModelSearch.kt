@@ -9,7 +9,7 @@ import es.uc3m.g1.musey.model.api.lastfm.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SongListViewModel(application: Application): AndroidViewModel(application) {
+class ViewModelSearch(application: Application): AndroidViewModel(application) {
 
     private val repository: Repository = Repository(application.applicationContext)
 
