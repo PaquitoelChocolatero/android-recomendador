@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Musey</string>
     <string name="ssl_pin_error">SSL PIN ERROR</string>
+    <string name="search_hint">Type a song</string>
 </resources>

@@ -9,7 +9,11 @@
         android:id="@+id/fragmentSongList"
         android:name="es.uc3m.g1.musey.view.FragmentRecommendation"
         android:label="fragment_song_recommendation"
-        tools:layout="@layout/fragment_recommendation" />
+        tools:layout="@layout/fragment_recommendation" >
+        <action
+            android:id="@+id/action_fragmentSongList_to_fragmentSearch"
+            app:destination="@id/fragmentSearch" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentSearch"
