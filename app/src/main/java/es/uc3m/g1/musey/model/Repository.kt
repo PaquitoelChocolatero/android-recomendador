@@ -9,8 +9,10 @@ import es.uc3m.g1.musey.model.database.search.Search
 import es.uc3m.g1.musey.model.database.search.SearchDao
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Query
 
 class Repository (context: Context) {
     val LASTFM_URL = "https://ws.audioscrobbler.com/2.0/"
@@ -64,4 +66,10 @@ class Repository (context: Context) {
 
         return response
     }
+
+    fun getInfo(track: Track): Track? {
+        val resp = lastfm.getInfo(track.artist.name, track.title).execute()
+        return resp.body()?.track
+    }
+
 }

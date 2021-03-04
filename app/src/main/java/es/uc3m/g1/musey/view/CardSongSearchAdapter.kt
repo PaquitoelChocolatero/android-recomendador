@@ -23,14 +23,12 @@ class CardSongSearchAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(private val view: CardSongBinding) : RecyclerView.ViewHolder(view.root) {
+    inner class ViewHolder(
+            private val view: CardSongBinding
+    ) : RecyclerView.ViewHolder(view.root) {
 
         fun setItem(item: Track) {
-            view.title.text = item.title
-            view.artist.text = item.artist.name
-            item.covers["small"]?.run {
-                Picasso.get().load(this).into(view.cover)
-            }
+            view.track.setTrack(item)
         }
     }
 }

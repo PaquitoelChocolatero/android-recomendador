@@ -1,4 +1,6 @@
 package es.uc3m.g1.musey.view
 
-class FragmentSearch {
+import androidx.fragment.app.Fragment
+
+class FragmentSearch: Fragment() {
 }

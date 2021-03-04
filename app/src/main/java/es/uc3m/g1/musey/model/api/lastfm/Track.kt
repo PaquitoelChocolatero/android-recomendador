@@ -11,24 +11,9 @@ import java.lang.reflect.Type
 data class Track (
     @SerializedName("name")   var title:  String,
     @SerializedName("artist") var artist: Artist,
-    @JsonAdapter(CoverListDeserializer::class)
-    @SerializedName("image")  var covers: Map<String, String> = emptyMap(),
+    @SerializedName("album")  var album:  Album? = null,
 ) {
-    class CoverListDeserializer: JsonDeserializer<Map<String, String>> {
-        override fun deserialize(
-            json: JsonElement?,
-            typeOfT: Type?,
-            context: JsonDeserializationContext?
-        ): Map<String, String> {
-            val map: MutableMap<String, String> = mutableMapOf()
-            json?.asJsonArray?.forEach { cover ->
-                cover.asJsonObject?.run {
-                    val url  = get("#text").asString ?: return emptyMap()
-                    val size = get("size") .asString ?: return emptyMap()
-                    map[size] = url
-                }
-            }
-            return map
-        }
-    }
+    data class Wrapper (
+            val track: Track
+    )
 }

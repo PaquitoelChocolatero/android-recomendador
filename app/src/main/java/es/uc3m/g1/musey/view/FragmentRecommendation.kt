@@ -9,24 +9,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import es.uc3m.g1.musey.databinding.FragmentSearchBinding
-import es.uc3m.g1.musey.viewModel.ViewModelSearch
+import es.uc3m.g1.musey.databinding.FragmentRecommendationBinding
+import es.uc3m.g1.musey.model.api.lastfm.Track
+import es.uc3m.g1.musey.viewModel.ViewModelRecommend
 
 /**
  * A fragment representing a list of Items.
  */
 class FragmentRecommendation : Fragment() {
 
-    private var columnCount = 1
-
-    private lateinit var viewModelSearch: ViewModelSearch
-    private lateinit var binding: FragmentSearchBinding
+    private lateinit var viewModelRecommend: ViewModelRecommend
+    private lateinit var binding: FragmentRecommendationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModelSearch = ViewModelProvider(this).get(ViewModelSearch::class.java)
+        viewModelRecommend = ViewModelProvider(this).get(ViewModelRecommend::class.java)
         arguments?.let {
-            columnCount = 1
+            viewModelRecommend.recommend = it["recommend"] as Track?
         }
     }
 
@@ -34,17 +33,18 @@ class FragmentRecommendation : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding = FragmentRecommendationBinding.inflate(inflater, container, false)
+        binding.searched.setTrack(viewModelRecommend.recommend)
         with(binding.list) {
             layoutManager = LinearLayoutManager(context)
-            adapter = CardSongSearchAdapter(viewModelSearch.list.value ?: emptyList())
-            viewModelSearch.list.observe(viewLifecycleOwner, Observer { songs ->
+            adapter = CardSongSearchAdapter(viewModelRecommend.list.value ?: emptyList())
+            viewModelRecommend.list.observe(viewLifecycleOwner, Observer { songs ->
                 with (adapter as CardSongSearchAdapter) {
                     values = songs
                     notifyDataSetChanged()
                 }
             })
-            viewModelSearch.error_msg.observe(viewLifecycleOwner, Observer { error ->
+            viewModelRecommend.error.observe(viewLifecycleOwner, Observer { error ->
                 Toast.makeText(context.applicationContext, error, Toast.LENGTH_SHORT).show()
             })
         }

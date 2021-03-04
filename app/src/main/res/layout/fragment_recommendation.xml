@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp">
-    <include
-        android:id="@+id/search"
-        layout="@layout/card_song"
-        android:onClick="mk"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:name="es.uc3m.g1.musey.view.FragmentRecommendation">
+    <es.uc3m.g1.musey.view.TrackView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#E3E3E3"
+        android:id="@+id/searched"
+        android:padding="10dp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
-        android:name="es.uc3m.g1.musey.view.FragmentSongList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context=".view.FragmentRecommendation"
-        tools:listitem="@layout/card_song"/>
+        tools:listitem="@layout/card_song"
+        android:paddingHorizontal="10dp"/>
+    <View
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="10px"/>
 </LinearLayout>
