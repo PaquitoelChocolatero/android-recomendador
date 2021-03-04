@@ -10,7 +10,7 @@
     android:layout_marginRight="16dp">
     <include
         android:id="@+id/search"
-        layout="@layout/card_song"
+        layout="@layout/search_bar"
         android:onClick="mk"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/results"
