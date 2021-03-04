@@ -11,21 +11,28 @@ import es.uc3m.g1.musey.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ViewModelSearch(application: Application): AndroidViewModel(application) {
+class ViewModelSearch(application: Application) : AndroidViewModel(application) {
     private val repository: Repository = Repository(application.applicationContext)
 
     val error: MutableLiveData<String> = MutableLiveData()
     val list: MutableLiveData<List<Track>> = MutableLiveData()
 
+    private var tracks: List<Track> = emptyList()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                list.postValue(
-                    repository.getTrack("Believe")
-                )
-            }catch (e: javax.net.ssl.SSLHandshakeException){
+                tracks = repository.getTrack("Believe")
+                list.postValue(tracks)
+                tracks.forEach {
+                    launch {
+                        it.album = repository.getInfo(it)?.album
+                        list.postValue(tracks)
+                    }
+                }
+            } catch (e: javax.net.ssl.SSLHandshakeException) {
                 error.postValue(
-                    application.applicationContext.getString(R.string.ssl_pin_error)
+                        application.applicationContext.getString(R.string.ssl_pin_error)
                 )
             }
         }

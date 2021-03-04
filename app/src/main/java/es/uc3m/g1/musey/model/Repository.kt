@@ -44,12 +44,12 @@ class Repository (context: Context) {
 
         val resp = call.execute()
 
-        var response: List<Track> = emptyList()
+        var response: Array<Track> = emptyArray()
 
         if (resp.isSuccessful) {
             response = resp?.body()?.tracks ?: response
         }
 
-        return response
+        return response.toList()
     }
 }
