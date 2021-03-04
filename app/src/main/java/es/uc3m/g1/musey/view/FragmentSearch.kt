@@ -14,17 +14,12 @@ import es.uc3m.g1.musey.viewModel.ViewModelSearch
 
 class FragmentSearch: Fragment() {
 
-    private var columnCount = 1
-
     private lateinit var viewModelSearch: ViewModelSearch
     private lateinit var binding: FragmentSearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModelSearch = ViewModelProvider(this).get(ViewModelSearch::class.java)
-        arguments?.let {
-            columnCount = 1
-        }
     }
 
     override fun onCreateView(
@@ -44,6 +39,9 @@ class FragmentSearch: Fragment() {
             viewModelSearch.error.observe(viewLifecycleOwner, Observer { error ->
                 Toast.makeText(context.applicationContext, error, Toast.LENGTH_SHORT).show()
             })
+        }
+        binding.button.setOnClickListener {
+            viewModelSearch.search = binding.input.text.toString()
         }
         return binding.root
     }

@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.PicassoProvider
 import es.uc3m.g1.musey.databinding.ViewSongBinding
 import es.uc3m.g1.musey.model.api.lastfm.Track
 
@@ -18,6 +19,7 @@ class TrackView(
             this,
             true
     )
+    private val picasso = Picasso.get()
 
     private var track: Track? = null
 
@@ -29,10 +31,12 @@ class TrackView(
         this.track = track
         binding.artist.text = track?.artist?.name ?: ""
         binding.title.text  = track?.title ?: ""
+        var cover: String? = "https://lastfm.freetls.fastly.net/i/u/64s/2a96cbd8b46e442fc41c2b86b821562f.png"
         track?.album?.run {
             covers["medium"]?.run {
-                Picasso.get().load(this).into(binding.cover)
+                if (this.isNotEmpty()) cover = this
             }
         }
+        picasso.load(cover).into(binding.cover)
     }
 }
