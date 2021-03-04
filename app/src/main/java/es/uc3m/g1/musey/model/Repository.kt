@@ -2,42 +2,16 @@ package es.uc3m.g1.musey.model
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import es.uc3m.g1.musey.model.api.LastFM
+import es.uc3m.g1.musey.model.api.RetrofitInstance
 import es.uc3m.g1.musey.model.api.lastfm.Track
 import es.uc3m.g1.musey.model.database.AppDatabase
 import es.uc3m.g1.musey.model.database.search.Search
 import es.uc3m.g1.musey.model.database.search.SearchDao
-import okhttp3.CertificatePinner
-import okhttp3.OkHttpClient
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Query
 
 class Repository (context: Context) {
-    val LASTFM_URL = "https://ws.audioscrobbler.com/2.0/"
 
     private val database: AppDatabase = AppDatabase.getDatabase(context)
     private val searches: SearchDao = database.getSearchDao()
-    private val lastfm: LastFM by lazy {
-    /*
-        val httpBuilder = OkHttpClient.Builder()
-
-        val certificatePinner = CertificatePinner.Builder()
-            .add("ws.audioscrobbler.com", "sha256/Py8r09gmJxFrsGI4ef5Y+1C+xCqtPwUcOB9blDfvThw=")
-            .build()
-
-        val okHttpClient = OkHttpClient.Builder()
-            .certificatePinner(certificatePinner)
-            .build()
-    */
-        Retrofit.Builder()
-            .baseUrl(LASTFM_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            //.client(okHttpClient)
-            .build()
-            .create(LastFM::class.java)
-    }
 
     fun getRecentSearches(): LiveData<List<Search>> {
         return searches.findAll()
@@ -47,19 +21,12 @@ class Repository (context: Context) {
     }
 
     fun getSimilar(track: Track): List<Track> {
-        // TODO mal: hacer asíncrono
-        val call = lastfm.getSimilar(track.artist.name, track.title)
+        val call = RetrofitInstance.lastfm.getSimilar(track.artist.name, track.title)
 
         val resp = call.execute()
-        /*try {
-            val resp = call.execute()
-        }catch (e: javax.net.ssl.SSLHandshakeException){
-            resp.code =
-        }*/
 
         var response: List<Track> = emptyList()
 
-        // TODO mal: null safety
         if (resp.isSuccessful) {
             response = resp?.body()?.similarTracks?.track ?: response
         }
@@ -68,8 +35,21 @@ class Repository (context: Context) {
     }
 
     fun getInfo(track: Track): Track? {
-        val resp = lastfm.getInfo(track.artist.name, track.title).execute()
+        val resp = RetrofitInstance.lastfm.getInfo(track.artist.name, track.title).execute()
         return resp.body()?.track
     }
 
+    fun getTrack(track: String): List<Track> {
+        val call = RetrofitInstance.lastfm.search(track)
+
+        val resp = call.execute()
+
+        var response: List<Track> = emptyList()
+
+        if (resp.isSuccessful) {
+            response = resp?.body()?.tracks ?: response
+        }
+
+        return response
+    }
 }

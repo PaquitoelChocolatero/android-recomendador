@@ -23,6 +23,7 @@ class FragmentRecommendation : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModelRecommend = ViewModelProvider(this).get(ViewModelRecommend::class.java)
         arguments?.let {
             viewModelRecommend.recommend = it["recommend"] as Track?
