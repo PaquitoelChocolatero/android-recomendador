@@ -3,6 +3,7 @@ package es.uc3m.g1.musey.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import es.uc3m.g1.musey.model.Repository
 import es.uc3m.g1.musey.model.api.lastfm.Track
@@ -12,12 +13,10 @@ import kotlinx.coroutines.*
 
 class ViewModelRecommend(
         private val app: Application
-): AndroidViewModel(app) {
-
-    private val repository: Repository = Repository(app.applicationContext)
+): TrackListViewModel(app) {
+    override val repository: Repository = Repository(app.applicationContext)
 
     val error: MutableLiveData<String> = MutableLiveData()
-    val list:  MutableLiveData<List<Track>> = MutableLiveData()
 
     var recommend: Track? = null
     set(value) {
@@ -25,24 +24,17 @@ class ViewModelRecommend(
         if (value != null) {
             viewModelScope.launch(Dispatchers.IO) {
                 try {
-                    tracks = repository.getSimilar(value!!)
-                    list.postValue(tracks)
-                    tracks.forEach {
-                        launch {
-                            it.album = repository.getInfo(it)?.album
-                            list.postValue(tracks)
-                        }
-                    }
+                    tracks = repository.getSimilar(value)
                 } catch (e: javax.net.ssl.SSLHandshakeException) {
                     error.postValue(
                             app.applicationContext.getString(R.string.ssl_pin_error)
                     )
                 }
             }
+        } else {
+            tracks = emptyList()
         }
     }
-
-    private var tracks: List<Track> = emptyList()
 
     init {
         recommend = Track("believe", Artist("cher"))
