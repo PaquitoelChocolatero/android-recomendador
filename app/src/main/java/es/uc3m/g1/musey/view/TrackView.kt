@@ -21,14 +21,9 @@ class TrackView(
     )
     private val picasso = Picasso.get()
 
-    private var track: Track? = null
-
-    init {
-        setTrack(null)
-    }
-
-    fun setTrack(track: Track?) {
-        this.track = track
+    var track: Track? = null
+    set(track) {
+        field = track
         binding.artist.text = track?.artist?.name ?: ""
         binding.title.text  = track?.title ?: ""
         var cover: String? = "https://lastfm.freetls.fastly.net/i/u/64s/2a96cbd8b46e442fc41c2b86b821562f.png"
@@ -39,4 +34,9 @@ class TrackView(
         }
         picasso.load(cover).into(binding.cover)
     }
+
+    init {
+        track = null
+    }
+
 }

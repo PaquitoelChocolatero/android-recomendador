@@ -31,8 +31,4 @@ class ViewModelSearch(val app: Application) : TrackListViewModel(app) {
             }
         }
     }
-
-    init {
-        search = null
-    }
 }

@@ -20,6 +20,9 @@
         app:layoutManager="LinearLayoutManager"
         tools:context=".view.FragmentRecommendation"
         tools:listitem="@layout/card_song"
+        android:focusable="true"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         android:paddingHorizontal="10dp"/>
     <View
         android:background="@color/black"

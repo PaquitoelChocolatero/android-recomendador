@@ -48,12 +48,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/results"
-        android:name="es.uc3m.g1.musey.view.FragmentSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context=".view.FragmentSearch"
         tools:listitem="@layout/card_song"/>
+
 </LinearLayout>

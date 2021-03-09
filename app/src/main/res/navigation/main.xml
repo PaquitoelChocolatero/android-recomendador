@@ -12,7 +12,15 @@
         tools:layout="@layout/fragment_recommendation" >
         <action
             android:id="@+id/action_fragmentSongList_to_fragmentSearch"
-            app:destination="@id/fragmentSearch" />
+            app:destination="@id/fragmentSearch"
+            app:exitAnim="@anim/fragment_close_exit" />
+        <argument
+            android:name="track"
+            app:argType="es.uc3m.g1.musey.model.api.lastfm.Track" />
+        <action
+            android:id="@+id/action_fragmentSongList_self"
+            app:destination="@id/fragmentSongList"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
 
     <fragment
@@ -22,6 +30,7 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_fragmentSearch_to_fragmentSongList"
-            app:destination="@id/fragmentSongList" />
+            app:destination="@id/fragmentSongList"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
 </navigation>

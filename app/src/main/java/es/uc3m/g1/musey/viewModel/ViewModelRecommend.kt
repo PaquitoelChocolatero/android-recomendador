@@ -1,9 +1,7 @@
 package es.uc3m.g1.musey.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import es.uc3m.g1.musey.model.Repository
 import es.uc3m.g1.musey.model.api.lastfm.Track
@@ -18,7 +16,7 @@ class ViewModelRecommend(
 
     val error: MutableLiveData<String> = MutableLiveData()
 
-    var recommend: Track? = null
+    var track: Track? = null
     set(value) {
         field = value
         if (value != null) {
@@ -34,9 +32,5 @@ class ViewModelRecommend(
         } else {
             tracks = emptyList()
         }
-    }
-
-    init {
-        recommend = Track("believe", Artist("cher"))
     }
 }
