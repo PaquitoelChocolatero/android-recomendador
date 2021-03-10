@@ -4,4 +4,5 @@
     <string name="ssl_pin_error">SSL PIN ERROR</string>
     <string name="search_hint">Type a song</string>
     <string name="search">Search</string>
+    <string name="recommendations">Recommendations</string>
 </resources>
