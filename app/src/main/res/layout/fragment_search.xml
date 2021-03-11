@@ -7,7 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp">
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="70dp">
     <androidx.cardview.widget.CardView
         app:contentPadding="5dp"
         app:cardElevation="2dp"

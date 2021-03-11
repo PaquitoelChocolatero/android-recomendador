@@ -16,35 +16,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        /*
-        val navigation: NavigationView = findViewById(R.id.navigation_view)
-        navigation.setNavigationItemSelectedListener {menuItem ->
-            val title: Int
-            title = when (menuItem.getItemId()) {
-                R.id.search -> R.string.search
-                else -> throw IllegalArgumentException("Menu option not implemented!!")
-            }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            return true
-        }
-        R.binding.topAppBar.setNavigationOnClickListener {
-            // Handle navigation icon press
-        }
-
-        topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.search -> {
-                    // Handle search icon press
-                    true
-                }
-                R.id.recommendations -> {
-                    // Handle more item (inside overflow menu) press
-                    true
-                }
-                else -> false
-            }
-        }*/
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = getMenuInflater()

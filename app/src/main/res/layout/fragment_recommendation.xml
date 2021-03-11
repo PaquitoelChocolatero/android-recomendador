@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:name="es.uc3m.g1.musey.view.FragmentRecommendation">
+    android:name="es.uc3m.g1.musey.view.FragmentRecommendation"
+    android:layout_marginTop="80dp">
     <es.uc3m.g1.musey.view.TrackView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
