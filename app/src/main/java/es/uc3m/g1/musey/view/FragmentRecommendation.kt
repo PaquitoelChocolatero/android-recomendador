@@ -21,6 +21,10 @@ import es.uc3m.g1.musey.viewModel.ViewModelRecommend
  */
 class FragmentRecommendation : Fragment() {
 
+    companion object {
+        fun newInstance(): FragmentRecommendation = FragmentRecommendation()
+    }
+
     private lateinit var viewModelRecommend: ViewModelRecommend
     private lateinit var binding: FragmentRecommendationBinding
 

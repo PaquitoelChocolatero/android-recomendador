@@ -1,7 +1,10 @@
 package es.uc3m.g1.musey.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -24,27 +27,51 @@ class MainActivity : AppCompatActivity() {
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             return true
-        }*/
+        }
         R.binding.topAppBar.setNavigationOnClickListener {
             // Handle navigation icon press
         }
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.favorite -> {
-                    // Handle favorite icon press
-                    true
-                }
                 R.id.search -> {
                     // Handle search icon press
                     true
                 }
-                R.id.more -> {
+                R.id.recommendations -> {
                     // Handle more item (inside overflow menu) press
                     true
                 }
                 else -> false
             }
+        }*/
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = getMenuInflater()
+        inflater.inflate(R.menu.main_menu, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.search -> {
+                val search = FragmentSearch.newInstance()
+                displayFragment(search)
+                true
+            }
+            R.id.recommendations -> {
+                val recommendations = FragmentRecommendation.newInstance()
+                displayFragment(recommendations)
+                true
+            }
         }
+        return super.onOptionsItemSelected(item)
+    }
+    private fun displayFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

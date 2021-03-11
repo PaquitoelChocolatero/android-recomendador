@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    layout_width="match_parent"
-    layout_height="match_parent">
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start"
+    tools:context=".view.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-    layout_width="match_parent"
-    layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            id="@+id/topAppBar"
-            layout_width="match_parent"
-            layout_height="?attr/actionBarSize"
-            menu="@menu/main_menu"
-            navigationIcon="@drawable/ic_baseline_menu_24"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:navGraph="@navigation/main" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
-        <!-- Note: A RecyclerView can also be used -->
-    <androidx.core.widget.NestedScrollView
-    layout_width="match_parent"
-    layout_height="match_parent"
-    layout_behavior="@string/appbar_scrolling_view_behavior">
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/main_menu"
+        android:clickable="true"/>
 
-    <!-- Scrollable content -->
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

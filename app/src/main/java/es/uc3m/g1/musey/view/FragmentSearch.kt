@@ -20,6 +20,10 @@ import es.uc3m.g1.musey.viewModel.ViewModelSearch
 
 class FragmentSearch: Fragment() {
 
+    companion object {
+        fun newInstance(): FragmentSearch = FragmentSearch()
+    }
+
     private lateinit var viewModelSearch: ViewModelSearch
     private lateinit var binding: FragmentSearchBinding
 
@@ -35,7 +39,8 @@ class FragmentSearch: Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
