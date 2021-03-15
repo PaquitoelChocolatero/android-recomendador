@@ -7,5 +7,4 @@ import androidx.room.PrimaryKey
 data class Search (
         @PrimaryKey
         val search: String,
-        val result: String
 )

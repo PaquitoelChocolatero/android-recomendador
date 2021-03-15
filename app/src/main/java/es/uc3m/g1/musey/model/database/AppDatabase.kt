@@ -7,8 +7,10 @@ import androidx.room.RoomDatabase
 
 import es.uc3m.g1.musey.model.database.search.Search
 import es.uc3m.g1.musey.model.database.search.SearchDao
+import es.uc3m.g1.musey.model.database.search.SearchTrackCrossRef
+import es.uc3m.g1.musey.model.database.search.Track
 
-@Database( version = 1, entities = [ Search::class ])
+@Database( version = 1, entities = [ Search::class, Track::class, SearchTrackCrossRef::class ])
 abstract class AppDatabase: RoomDatabase() {
 
     companion object {

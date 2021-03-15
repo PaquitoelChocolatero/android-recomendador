@@ -18,10 +18,10 @@ data class Artist (
         ): Artist {
             var name: String = ""
 
-            if(json?.isJsonObject==true){
-                name = json?.asJsonObject?.get("name")?.asString ?: ""
-            }else if(json?.isJsonObject==false){
-                name = json?.asString ?: ""
+            if(json?.isJsonObject == true){
+                name = json.asJsonObject?.get("name")?.asString ?: ""
+            }else if(json?.isJsonObject == false){
+                name = json.asString ?: ""
             }
 
             return Artist(name)

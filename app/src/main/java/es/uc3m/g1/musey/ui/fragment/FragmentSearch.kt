@@ -20,6 +20,10 @@ import es.uc3m.g1.musey.viewModel.ViewModelSearch
 
 class FragmentSearch: Fragment() {
 
+    companion object {
+        fun newInstance(): FragmentSearch = FragmentSearch()
+    }
+
     private lateinit var viewModelSearch: ViewModelSearch
     private lateinit var binding: FragmentSearchBinding
 
@@ -29,7 +33,8 @@ class FragmentSearch: Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -61,13 +66,13 @@ class FragmentSearch: Fragment() {
 
         binding.button.setOnClickListener {
             viewModelSearch.search = binding.input.text.toString()
-            view?.hideKeyboard()
+            view.hideKeyboard()
         }
 
         binding.input.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModelSearch.search = binding.input.text.toString()
-                view?.hideKeyboard()
+                view.hideKeyboard()
                 return@OnEditorActionListener true
             }
             false

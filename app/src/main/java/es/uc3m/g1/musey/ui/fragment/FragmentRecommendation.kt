@@ -16,10 +16,11 @@ import es.uc3m.g1.musey.model.api.lastfm.Track
 import es.uc3m.g1.musey.ui.adapter.CardSongSearchAdapter
 import es.uc3m.g1.musey.viewModel.ViewModelRecommend
 
-/**
- * A fragment representing a list of Items.
- */
 class FragmentRecommendation : Fragment() {
+
+    companion object {
+        fun newInstance(): FragmentRecommendation = FragmentRecommendation()
+    }
 
     private lateinit var viewModelRecommend: ViewModelRecommend
     private lateinit var binding: FragmentRecommendationBinding
@@ -64,7 +65,7 @@ class FragmentRecommendation : Fragment() {
                 Toast.makeText(context.applicationContext, error, Toast.LENGTH_SHORT).show()
             })
         }
-        (binding.searched.parent as View)?.setOnClickListener {
+        (binding.searched.parent as View).setOnClickListener {
             it.findNavController().navigate(R.id.action_fragmentSongList_to_fragmentSearch)
         }
     }
