@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,25 +8,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:name="es.uc3m.g1.musey.view.FragmentRecommendation">
-    <es.uc3m.g1.musey.view.TrackView
-        android:layout_height="wrap_content"
+
+    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardElevation="2dp"
         android:layout_width="match_parent"
-        android:background="#E3E3E3"
-        android:id="@+id/searched"
-        android:padding="10dp"/>
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true">
+        <es.uc3m.g1.musey.ui.view.TrackView
+            android:id="@+id/searched"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+    </com.google.android.material.card.MaterialCardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".view.FragmentRecommendation"
+        tools:context=".ui.fragment.FragmentRecommendation"
         tools:listitem="@layout/card_song"
         android:focusable="true"
         android:clickable="true"
         android:focusableInTouchMode="true"
         android:paddingHorizontal="10dp"/>
-    <View
-        android:background="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="10px"/>
 </LinearLayout>

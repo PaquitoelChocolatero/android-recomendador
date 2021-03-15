@@ -1,13 +1,10 @@
-package es.uc3m.g1.musey.view
+package es.uc3m.g1.musey.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import com.squareup.picasso.Picasso
-import es.uc3m.g1.musey.R
 import es.uc3m.g1.musey.databinding.CardSongBinding
 import es.uc3m.g1.musey.model.api.lastfm.Track
 

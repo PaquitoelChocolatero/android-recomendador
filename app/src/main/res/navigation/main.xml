@@ -7,30 +7,40 @@
 
     <fragment
         android:id="@+id/fragmentSongList"
-        android:name="es.uc3m.g1.musey.view.FragmentRecommendation"
+        android:name="es.uc3m.g1.musey.ui.fragment.FragmentRecommendation"
         android:label="fragment_song_recommendation"
         tools:layout="@layout/fragment_recommendation" >
         <action
             android:id="@+id/action_fragmentSongList_to_fragmentSearch"
             app:destination="@id/fragmentSearch"
-            app:exitAnim="@anim/fragment_close_exit" />
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <argument
             android:name="track"
             app:argType="es.uc3m.g1.musey.model.api.lastfm.Track" />
         <action
             android:id="@+id/action_fragmentSongList_self"
             app:destination="@id/fragmentSongList"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentSearch"
-        android:name="es.uc3m.g1.musey.view.FragmentSearch"
+        android:name="es.uc3m.g1.musey.ui.fragment.FragmentSearch"
         android:label="fragment_song_search"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_fragmentSearch_to_fragmentSongList"
             app:destination="@id/fragmentSongList"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

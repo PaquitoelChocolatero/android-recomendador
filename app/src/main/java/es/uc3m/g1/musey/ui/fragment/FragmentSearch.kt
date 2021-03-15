@@ -1,12 +1,10 @@
-package es.uc3m.g1.musey.view
+package es.uc3m.g1.musey.ui.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.uc3m.g1.musey.R
 import es.uc3m.g1.musey.databinding.FragmentSearchBinding
+import es.uc3m.g1.musey.hideKeyboard
+import es.uc3m.g1.musey.ui.adapter.CardSongSearchAdapter
 import es.uc3m.g1.musey.viewModel.ViewModelSearch
 
 
@@ -28,23 +28,23 @@ class FragmentSearch: Fragment() {
         viewModelSearch = ViewModelProvider(this).get(ViewModelSearch::class.java)
     }
 
-    fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         with(binding.results) {
             layoutManager = LinearLayoutManager(context)
 
             adapter = CardSongSearchAdapter(
-                    viewModelSearch.list.value ?: emptyList(),
-                    R.id.action_fragmentSearch_to_fragmentSongList
+                viewModelSearch.list.value ?: emptyList(),
+                R.id.action_fragmentSearch_to_fragmentSongList
             )
 
             viewModelSearch.list.observe(viewLifecycleOwner, Observer { songs ->
@@ -58,12 +58,13 @@ class FragmentSearch: Fragment() {
                 Toast.makeText(context.applicationContext, error, Toast.LENGTH_SHORT).show()
             })
         }
+
         binding.button.setOnClickListener {
             viewModelSearch.search = binding.input.text.toString()
             view?.hideKeyboard()
         }
 
-        binding.input.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        binding.input.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModelSearch.search = binding.input.text.toString()
                 view?.hideKeyboard()
@@ -71,7 +72,5 @@ class FragmentSearch: Fragment() {
             }
             false
         })
-
-        return binding.root
     }
 }

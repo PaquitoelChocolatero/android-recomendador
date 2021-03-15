@@ -12,7 +12,7 @@
     android:focusable="true"
     >
 
-    <es.uc3m.g1.musey.view.TrackView
+    <es.uc3m.g1.musey.ui.view.TrackView
         android:id="@+id/track"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>
